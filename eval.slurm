@@ -24,7 +24,6 @@ mkdir -p $RESULT_DIR/$MODEL
 EVAL_DIR=$RESULT_DIR/$MODEL/eval_details
 EVAL_FINAL=$RESULT_DIR/$MODEL/eval_metric.txt
 
-API=""
 
 source .venv_DeCap/bin/activate
 

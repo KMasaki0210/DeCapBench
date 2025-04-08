@@ -493,9 +493,8 @@ def main():
     args = argparser()
 
     print('Initializing Client')
-    client = OpenAI(
-        api_key=args.api_key,
-    )
+    openai.api_key = args.api_key
+    client = openai
 
     print('Initialization finished')
     
@@ -532,7 +531,7 @@ def main():
             cap_dict = caption.copy()
             cap_dict["human_annotated_oracle_atomic_facts"] = [
                 {"id": fact_idx, "fact": fact}
-                for fact_idx, fact in enumerate(oracle_facts_map[caption['image_path']]['oracle_facts'])
+                for fact_idx, fact in enumerate(oracle_facts_map[caption['image_name']]['oracle_facts'])
             ]
             
             eval_dict = {'consume_token': []}
@@ -578,7 +577,7 @@ def main():
                 
                 ########################
                 # Verify Atomic Facts
-                reference_caption = caption['oracle_caption']
+                reference_caption = oracle_facts_map[caption['image_name']]['oracle_caption']
                 
                 verified_results, completion = run_gpt_multimodal(
                     client=client,
@@ -586,7 +585,7 @@ def main():
                         reference_caption=reference_caption,
                         atomic_facts=format_json_input(parsed_pred_atomic_facts_for_mapping),
                     ),
-                    image_path=os.path.join(args.image_path, caption['image_path']),
+                    image_path=os.path.join(args.image_path, caption['image_name']),
                     temperature=0.3,
                     detail='high',
                     n=args.n_ai_eval,

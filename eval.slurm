@@ -24,7 +24,7 @@ mkdir -p $RESULT_DIR/$MODEL
 EVAL_DIR=$RESULT_DIR/$MODEL/eval_details
 EVAL_FINAL=$RESULT_DIR/$MODEL/eval_metric.txt
 
-API="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"
+API=""
 
 source .venv_DeCap/bin/activate
 
